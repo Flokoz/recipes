@@ -13,6 +13,9 @@ class ChefViewSet(viewsets.ModelViewSet):
 
 
 class RecipesViewSet(viewsets.ModelViewSet):
+    """
+    View to list, add, remove and edit recipes
+    """
     queryset = Recipes.objects.all().order_by('recipe_name')
     serializer_class = RecipesSerializer
     permission_classes = [permissions.IsAuthenticated]
@@ -22,7 +25,10 @@ class RecipeSearch(ListAPIView):
     serializer_class = RecipesSerializer
 
     def get_queryset(self):
-
+        """
+        View to filter recipes by name and chef name
+        :return: A list of recipes filtered by name or chef name
+        """
         queryset = Recipes.objects.all().order_by('recipe_name')
         recipe_name = self.request.query_params.get('recipe_name')
         chef_name = self.request.query_params.get('chef_name')
